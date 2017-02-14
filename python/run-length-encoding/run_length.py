@@ -1,15 +1,27 @@
 def encode(string):
-    encoding = '0'
+    def _encode(count, char):
+        if count == 1:
+            return char
+        else:
+            return f'{str(count)}{char}'
+    encoded = ''
     prev = string[0]
+    count = 0
     for curr in string:
         if curr == prev:
-            encoding = f'{encoding[:-1]}{str(int(encoding[-1])+1)}'
+            count += 1
         else:
-            encoding = f'{encoding}{prev}1'
+            encoded = f'{encoded}{_encode(count, prev)}'
+            count = 1
         prev = curr
-    encoding = f'{encoding}{curr}'
-    return encoding
+
+    encoded = f'{encoded}{_encode(count, prev)}'
+    return encoded
 
 
 def decode(string):
     pass
+
+
+if __name__ == '__main__':
+    encode('foobar')

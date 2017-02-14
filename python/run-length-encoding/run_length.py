@@ -1,4 +1,8 @@
+import re
+
+
 def encode(string):
+
     def _encode(count, char):
         if count == 1:
             return char
@@ -20,7 +24,31 @@ def encode(string):
 
 
 def decode(string):
-    pass
+    original = ''
+    atoms = []
+    n = ''
+    for x in string:
+        if re.match('\d', x):
+            n += x
+        else:
+            if n != '':
+                atoms.append(n)
+                n = ''
+            atoms.append(x)
+    atoms.reverse()
+    while True:
+        try:
+            char = str(atoms.pop())
+        except IndexError:
+            break
+        if re.match('\d+', char):
+            count = int(char)
+            char = atoms.pop()
+            original += f'{char*count}'
+        else:
+            original += char
+            continue
+    return original
 
 
 if __name__ == '__main__':

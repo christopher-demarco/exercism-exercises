@@ -1,0 +1,8 @@
+(ns two-fer)
+
+(defn two-fer
+  "Show how to use arity for param defaults"
+  ([name]
+   (str "One for " name ", one for me."))
+  ([] (two-fer "you")))
+
